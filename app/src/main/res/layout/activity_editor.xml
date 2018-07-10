@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DimenWidthHeight.Padd.Orient"
+    tools:context=".EditorActivity">
+
+    <!-- Overview category -->
+    <LinearLayout style="@style/EditorLinLay">
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/flower_name" />
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_flower_name"
+            style="@style/EditorFieldStyle"
+            android:hint="@string/flower_name_hint"
+            android:inputType="textCapWords" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/EditorLinLay">
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/edit_price" />
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_price"
+            style="@style/EditorFieldStyle"
+            android:hint="@string/price_hint"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/EditorLinLay">
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/edit_quantity" />
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_quantity"
+            style="@style/EditorFieldStyle"
+            android:hint="@string/quantity_hint"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/EditorLinLay">
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/edit_supplier_name" />
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_supplier_name"
+            style="@style/EditorFieldStyle"
+            android:hint="@string/name_of_supplier_hint"
+            android:inputType="textCapWords" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/EditorLinLay">
+        <!-- Label -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/edit_supplier_phone_no" />
+        <!-- Name field -->
+        <EditText
+            android:id="@+id/edit_supplier_phone"
+            style="@style/EditorFieldStyle"
+            android:hint="@string/supplier_phone_hint"
+            android:inputType="phone" />
+    </LinearLayout>
+
+</LinearLayout>

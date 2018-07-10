@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DimenWidthHeight"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/text_view_flower"
+        style="@style/DimenWidthHeight.Padd" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/FABStyle"
+        android:src="@drawable/ic_add_flower"></android.support.design.widget.FloatingActionButton>
+</RelativeLayout>
