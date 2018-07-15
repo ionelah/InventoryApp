@@ -4,6 +4,7 @@ import android.provider.BaseColumns;
 
 public final class FlowerContract {
     private FlowerContract() {
+        throw new AssertionError("No instances for you!");
     }
 
     public static final class FlowerEntry implements BaseColumns {
