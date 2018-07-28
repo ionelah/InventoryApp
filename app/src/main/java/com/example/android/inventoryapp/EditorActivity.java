@@ -90,17 +90,33 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             //this is a new flower so we have to change the bar app to "add a new flower"
             setTitle(getString(R.string.editor_activity_title_add_new_flower));
             initialFlowerNameEditText.setEnabled(true);
+            initialPriceEditText.setEnabled(true);
+            initialQuantityEditText.setEnabled(true);
+            initialSupplierNameEditText.setEnabled(true);
+            initialSupplierPhoneEditText.setEnabled(true);
+            increaseQuantityButton.setVisibility(View.GONE);
+            decreaseQuantityButton.setVisibility(View.GONE);
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             invalidateOptionsMenu();
         } else {
             //otherwise this is a an existing flower so change the bar app to "Edit flower"
             setTitle(getString(R.string.editor_activity_title_edit_flower));
+            initialFlowerNameEditText.setEnabled(false);
+            initialPriceEditText.setEnabled(false);
+            initialQuantityEditText.setEnabled(false);
+            initialSupplierNameEditText.setEnabled(false);
+            initialSupplierPhoneEditText.setEnabled(false);
+            increaseQuantityButton.setVisibility(View.VISIBLE);
+            decreaseQuantityButton.setVisibility(View.VISIBLE);
             //Initialize a loader to read the flower data from the database and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_FLOWER_LOADER, null, this);
         }
 
-
-
+        /*
+         * Setup OnTouchListeners on all the input fields, so we can determine if the user
+         * has touched or modified them. This will let us know if there are unsaved changes
+         * or not, if the user tries to leave the editor without saving.
+         */
         initialFlowerNameEditText.setOnTouchListener(defaultTouchListener);
         initialPriceEditText.setOnTouchListener(defaultTouchListener);
         initialQuantityEditText.setOnTouchListener(defaultTouchListener);
@@ -126,6 +142,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     //get user input from editor and save new flower into database
     private void saveFlower() {
+
         //read from input fields
         String nameString = initialFlowerNameEditText.getText().toString().trim();
         String priceString = initialPriceEditText.getText().toString().trim();
@@ -145,13 +162,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             return;
         }
 
-
-
         //create a ContentValue object where column name are keys and flower attributes from editor values
         ContentValues values = new ContentValues();
         values.put(FlowerEntry.COLUMN_FLOWER_NAME, nameString);
-        values.put(FlowerEntry.COLUMN_PRICE, priceString);
-        values.put(FlowerEntry.COLUMN_QUANTITY, quantityString);
+        values.put(FlowerEntry.COLUMN_PRICE, Integer.parseInt(priceString));
+        values.put(FlowerEntry.COLUMN_QUANTITY, Integer.parseInt(quantityString));
         values.put(FlowerEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
         values.put(FlowerEntry.COLUMN_SUPPLIER_PHONE_NO, supplierPhoneString);
 
@@ -167,7 +182,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
                 Toast.makeText(this, getString(R.string.editor_insert_flower_successful), Toast.LENGTH_SHORT).show();
-                finish();
             }
         } else {
             // Otherwise this is an EXISTING flower, so update the flower with content URI: initialCurrentFlowerUri
@@ -180,7 +194,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             } else {
                 // Otherwise, the update was successful and we can display a toast.
                 Toast.makeText(this, getString(R.string.editor_update_flower_successful), Toast.LENGTH_SHORT).show();
-                finish();
             }
         }
     }
@@ -222,6 +235,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // Pop up confirmation dialog for deletion
                 showDeleteConfirmationDialog();
                 return true;
+            // Respond to a click on the "Order" menu option
+            case R.id.action_order:
+
+                return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
                 // Navigate back to parent activity (MainActivity)
@@ -245,10 +262,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
                 // Show a dialog that notifies the user they have unsaved changes
                 showUnsavedChangesDialog(discardButtonClickListener);
-                return true;
-            // Respond to a click on the "Order" menu option
-            case R.id.action_order:
-
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -309,7 +322,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Proceed with moving to the first row of the cursor and reading data from it
         if (cursor.moveToFirst()) {
             // Find the columns of flower attributes that we're interested in
-            final int idColumnIndex = cursor.getColumnIndex(FlowerEntry._ID);
             int nameColumnIndex = cursor.getColumnIndex(FlowerEntry.COLUMN_FLOWER_NAME);
             int priceColumnIndex = cursor.getColumnIndex(FlowerEntry.COLUMN_PRICE);
             int quantityColumnIndex = cursor.getColumnIndex(FlowerEntry.COLUMN_QUANTITY);
@@ -326,8 +338,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Update the views on the screen with the values from the database
             initialFlowerNameEditText.setText(name);
-            initialPriceEditText.setText(Integer.toString(price));
-            initialQuantityEditText.setText(Integer.toString(quantity));
+            initialPriceEditText.setText(price);
+            initialQuantityEditText.setText(quantity);
             initialSupplierNameEditText.setText(supplierName);
             initialSupplierPhoneEditText.setText(supplierPhone);
         }
@@ -337,8 +349,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(Loader<Cursor> loader) {
         // If the loader is invalidated, clear out all the data from the input fields.
         initialFlowerNameEditText.setText("");
-        initialPriceEditText.setSelection(0);
-        initialQuantityEditText.setSelection(0);
+        initialPriceEditText.setText("");
+        initialQuantityEditText.setText("");
         initialSupplierNameEditText.setText("");
         initialSupplierPhoneEditText.setText("");
     }
