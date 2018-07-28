@@ -6,6 +6,7 @@ import android.provider.BaseColumns;
 
 public final class FlowerContract {
     private FlowerContract() {
+        throw new AssertionError("No instances for you!");
     }
 
     //content authority is the name for the entire content provider
