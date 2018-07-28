@@ -4,9 +4,18 @@
     style="@style/DimenWidthHeight"
     tools:context=".MainActivity">
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
-        android:id="@+id/text_view_flower"
-        style="@style/DimenWidthHeight.Padd" />
+        android:id="@+id/empty_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/activity_margin"
+        android:text="There are no flowers in database. To add one, please complete all the fields "/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

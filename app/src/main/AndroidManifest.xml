@@ -18,12 +18,15 @@
 
         <activity
             android:name=".EditorActivity"
-            android:label="@string/editor_activity_title_add_flower"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
         </activity>
+        <provider
+            android:name=".data.FlowerProvider"
+            android:authorities="com.example.android.inventoryapp"
+            android:exported="false" />
     </application>
 
 </manifest>

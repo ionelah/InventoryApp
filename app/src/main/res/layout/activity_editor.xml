@@ -21,14 +21,25 @@
     <LinearLayout style="@style/EditorLinLay">
         <!-- Label -->
         <TextView
-            style="@style/CategoryStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceSmall"
             android:text="@string/edit_price" />
         <!-- Name field -->
         <EditText
             android:id="@+id/edit_price"
-            style="@style/EditorFieldStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:hint="@string/price_hint"
             android:inputType="number" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="eur"/>
     </LinearLayout>
 
     <LinearLayout style="@style/EditorLinLay">
@@ -36,12 +47,25 @@
         <TextView
             style="@style/CategoryStyle"
             android:text="@string/edit_quantity" />
+
+        <Button
+            android:id="@+id/decrease_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"/>
         <!-- Name field -->
         <EditText
             android:id="@+id/edit_quantity"
-            style="@style/EditorFieldStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:hint="@string/quantity_hint"
             android:inputType="number" />
+
+        <Button
+            android:id="@+id/increase_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"/>
     </LinearLayout>
 
     <LinearLayout style="@style/EditorLinLay">

@@ -8,6 +8,8 @@ import com.example.android.inventoryapp.data.FlowerContract.FlowerEntry;
 
 public class FlowerDbHelper extends SQLiteOpenHelper {
 
+    public static final String LOG_TAG = FlowerDbHelper.class.getSimpleName();
+
     //if we change database schema we must increment the database version
     private static final int DATABASE_VERSION = 1;
     //name of database
@@ -36,6 +38,6 @@ public class FlowerDbHelper extends SQLiteOpenHelper {
     //this is called when database needs to be upgraded
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // The database is still at version 1, so there's nothing to do be done here.
     }
 }

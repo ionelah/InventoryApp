@@ -29,4 +29,19 @@
     <string name="flowers">flowers</string>
     <string name="error_message_to_save">Error with saving flower</string>
     <string name="flower_saved">Flower saved with id</string>
+
+    <string name="editor_activity_title_edit_flower">Edit flower</string>
+    <string name="editor_activity_title_add_new_flower">Add a new flower</string>
+    <string name="editor_insert_flower_failed">Error with saving flower</string>
+    <string name="editor_insert_flower_successful">Flower saved</string>
+    <string name="editor_update_flower_failed">Error with updating flower</string>
+    <string name="editor_update_flower_successful">Flower updated</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="delete_dialog_msg">Delete this flower?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="editor_delete_flower_successful">Flower deleted</string>
+    <string name="editor_delete_flower_failed">Error with deleting flower</string>
 </resources>
