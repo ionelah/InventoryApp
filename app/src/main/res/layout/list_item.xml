@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -12,7 +11,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D"/>
+        android:textColor="@color/FlowerNameColorTextView" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,31 +20,17 @@
 
         <TextView
             android:id="@+id/price_for_flower"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#000000" />
+            style="@style/ListViewStyle" />
 
         <TextView
             android:id="@+id/quantity_of_flower"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#000000" />
+            style="@style/ListViewStyle" />
 
         <Button
             android:id="@+id/sale_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SALE"
-            android:textColor="#000000"
-            android:fontFamily="sans-serif"
-            android:textAppearance="?android:textAppearanceSmall" />
+            style="@style/ListViewStyle"
+            android:focusable="false"
+            android:text="@string/sale_bttn" />
 
     </LinearLayout>
 

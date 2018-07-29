@@ -3,15 +3,12 @@ package com.example.android.inventoryapp;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.content.Loader;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -21,18 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.FlowerContract.FlowerEntry;
-import com.example.android.inventoryapp.data.FlowerDbHelper;
 
 
-public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     // Identifier for the flower data loader
     private static final int EXISTING_FLOWER_LOADER = 0;
@@ -125,23 +118,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         increaseQuantityButton.setOnTouchListener(defaultTouchListener);
         decreaseQuantityButton.setOnTouchListener(defaultTouchListener);
 
-        increaseQuantityButton.setOnClickListener(new View.OnClickListener(){
+        increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 increaseQuantity(v);
             }
         });
 
-        decreaseQuantityButton.setOnClickListener(new View.OnClickListener(){
+        decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 decreaseQuantity(v);
             }
         });
     }
 
     //get user input from editor and save new flower into database
-    private void saveFlower() {
+    private boolean saveFlower() {
 
         //read from input fields
         String nameString = initialFlowerNameEditText.getText().toString().trim();
@@ -152,14 +145,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String supplierNameString = initialSupplierNameEditText.getText().toString().trim();
         String supplierPhoneString = initialSupplierPhoneEditText.getText().toString().trim();
 
-        // Check if this is supposed to be a new flower and check if all the fields in the editor are blank
-        if (initialCurrentFlowerUri == null && TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierPhoneString)) {
-            /*
-             * Since no fields were modified, we can return early without creating a new flower.
-             * No need to create ContentValues and no need to do any ContentProvider operations.
-             */
-            return;
+        // Check if this is supposed to be a new flower and check if any of the fields in the editor are blank
+        if (TextUtils.isEmpty(nameString)) {
+            Toast.makeText(this, getString(R.string.product_name_err_msg), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(priceString)) {
+            Toast.makeText(this, getString(R.string.product_price_err_msg), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(quantityString)) {
+            Toast.makeText(this, getString(R.string.product_quantity_err_msg), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(supplierNameString)) {
+            Toast.makeText(this, getString(R.string.product_supplierName_err_msg), Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (TextUtils.isEmpty(supplierPhoneString)) {
+            Toast.makeText(this, getString(R.string.product_supplierPhone_err_msg), Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         //create a ContentValue object where column name are keys and flower attributes from editor values
@@ -196,6 +197,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 Toast.makeText(this, getString(R.string.editor_update_flower_successful), Toast.LENGTH_SHORT).show();
             }
         }
+        return true;
     }
 
     @Override
@@ -227,8 +229,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 //save flower to database
-                saveFlower();
-                finish();
+               if (saveFlower()) {
+                   finish();
+               }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -237,7 +240,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             // Respond to a click on the "Order" menu option
             case R.id.action_order:
-
+                orderFlowers();
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
@@ -265,6 +268,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // This method is called when Order Menu is sellected
+    private void orderFlowers() {
+        if (initialQuantity > 0) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            String supplierPhoneString = initialSupplierPhoneEditText.getText().toString().trim();
+            intent.setData(Uri.parse("tel:" + supplierPhoneString));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, R.string.phone_app_missing_err_msg, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(this, R.string.order_error_msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     // This method is called when the back button is pressed.
@@ -338,8 +357,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Update the views on the screen with the values from the database
             initialFlowerNameEditText.setText(name);
-            initialPriceEditText.setText(price);
-            initialQuantityEditText.setText(quantity);
+            initialPriceEditText.setText(String.valueOf(price));
+            initialQuantityEditText.setText(String.valueOf(quantity));
             initialSupplierNameEditText.setText(supplierName);
             initialSupplierPhoneEditText.setText(supplierPhone);
         }
@@ -359,14 +378,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * Show a dialog that warns the user there are unsaved changes that will be lost
      * if they continue leaving the editor.
+     *
      * @param discardButtonClickListener is the click listener for what to do when
      *                                   the user confirms they want to discard their changes
      */
     private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
         /*
-        * Create an AlertDialog.Builder and set the message, and click listeners
-        * for the positive and negative buttons on the dialog.
-        */
+         * Create an AlertDialog.Builder and set the message, and click listeners
+         * for the positive and negative buttons on the dialog.
+         */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.unsaved_changes_dialog_msg);
         builder.setPositiveButton(R.string.discard, discardButtonClickListener);
@@ -418,10 +438,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Only perform the delete if this is an existing flower.
         if (initialCurrentFlowerUri != null) {
             /*
-            * Call the ContentResolver to delete the flower at the given content URi
-            * Pass in null for the selection and selection args because the initialCurrentFlowerUri
-            * content URI already identifies the flower that we want.
-            */
+             * Call the ContentResolver to delete the flower at the given content URi
+             * Pass in null for the selection and selection args because the initialCurrentFlowerUri
+             * content URI already identifies the flower that we want.
+             */
             int rowsDeleted = getContentResolver().delete(initialCurrentFlowerUri, null, null);
 
             // Show a toast message depending on whether or not the delete was successful.
@@ -438,14 +458,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         finish();
     }
 
-    public void increaseQuantity (View view){
-        initialQuantity ++;
+    public void increaseQuantity(View view) {
+        initialQuantity++;
         initialQuantityEditText.setText(String.valueOf(initialQuantity));
     }
 
-    public void decreaseQuantity (View view) {
+    public void decreaseQuantity(View view) {
         if (initialQuantity == 0) {
-            Toast.makeText(this, "Can't decrease quantity", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.decrease_bttn_error_msg, Toast.LENGTH_SHORT).show();
         } else {
             initialQuantity--;
             initialQuantityEditText.setText(String.valueOf(initialQuantity));

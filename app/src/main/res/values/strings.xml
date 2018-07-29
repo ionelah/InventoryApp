@@ -44,4 +44,15 @@
     <string name="cancel">Cancel</string>
     <string name="editor_delete_flower_successful">Flower deleted</string>
     <string name="editor_delete_flower_failed">Error with deleting flower</string>
+    <string name="order_error_msg">You can\'t order this flower. There are no more in stock.</string>
+    <string name="decrease_bttn_error_msg">Can\'t decrease quantity</string>
+    <string name="sale_bttn_error_msg">Please choose another flower, there are no more in stock</string>
+    <string name="sale_bttn">SALE</string>
+    <string name="empty_text_view_msg">There are no flowers in database. To add one, please complete all the fields</string>
+    <string name="product_price_err_msg">Please enter the product price!</string>
+    <string name="product_name_err_msg">Please enter the product name!</string>
+    <string name="product_quantity_err_msg">Please enter the product quantity!</string>
+    <string name="product_supplierName_err_msg">Please enter the supplier name!</string>
+    <string name="product_supplierPhone_err_msg">Please enter the supplier phone number!</string>
+    <string name="phone_app_missing_err_msg">Phone app is not present on your device!</string>
 </resources>

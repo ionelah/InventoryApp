@@ -23,23 +23,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:textColor="@color/colorAccent"
             android:fontFamily="sans-serif-medium"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/edit_price"
             android:textAppearance="?android:textAppearanceSmall"
-            android:text="@string/edit_price" />
+            android:textColor="@color/colorAccent" />
         <!-- Name field -->
         <EditText
             android:id="@+id/edit_price"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="@string/price_hint"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="4"
+            android:textAlignment="center" />
 
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="eur"/>
+            android:layout_height="wrap_content"
+            android:text="eur" />
     </LinearLayout>
 
     <LinearLayout style="@style/EditorLinLay">
@@ -52,20 +54,22 @@
             android:id="@+id/decrease_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"/>
+            android:text="-" />
         <!-- Name field -->
         <EditText
             android:id="@+id/edit_quantity"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:hint="@string/quantity_hint"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="5"
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/increase_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"/>
+            android:text="+" />
     </LinearLayout>
 
     <LinearLayout style="@style/EditorLinLay">
@@ -91,7 +95,8 @@
             android:id="@+id/edit_supplier_phone"
             style="@style/EditorFieldStyle"
             android:hint="@string/supplier_phone_hint"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:maxLength="14"/>
     </LinearLayout>
 
 </LinearLayout>

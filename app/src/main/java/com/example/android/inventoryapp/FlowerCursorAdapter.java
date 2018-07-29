@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,7 @@ public class FlowerCursorAdapter extends CursorAdapter {
 
     /**
      * Makes a new blank list item view. No data is set (or bound) to the views yet.
+     *
      * @param context app context
      * @param cursor  The cursor from which to get the data. The cursor is already
      *                moved to the correct position.
@@ -41,6 +41,7 @@ public class FlowerCursorAdapter extends CursorAdapter {
      * This method binds the flower data (in the current row pointed to by cursor) to the given
      * list item layout. For example, the name for the current flower can be set on the name TextView
      * in the list item layout.
+     *
      * @param view    Existing view, returned earlier by newView() method
      * @param context app context
      * @param cursor  The cursor from which to get the data. The cursor is already moved to the
@@ -82,7 +83,7 @@ public class FlowerCursorAdapter extends CursorAdapter {
                     Uri newUri = ContentUris.withAppendedId(FlowerEntry.CONTENT_URI, flowerItemId);
                     context.getContentResolver().update(newUri, values, null, null);
                 } else {
-                    Toast.makeText(context, "Please choose another flower, there are no more in stock", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.sale_bttn_error_msg, Toast.LENGTH_SHORT).show();
                 }
             }
         });

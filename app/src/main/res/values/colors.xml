@@ -3,4 +3,5 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#486628</color>
+    <color name="FlowerNameColorTextView">#2B3D4D</color>
 </resources>

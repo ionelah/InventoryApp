@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:padding="@dimen/activity_margin"
-        android:text="There are no flowers in database. To add one, please complete all the fields "/>
+        android:text="@string/empty_text_view_msg" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

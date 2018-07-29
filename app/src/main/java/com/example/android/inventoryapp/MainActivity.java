@@ -1,32 +1,31 @@
 package com.example.android.inventoryapp;
 
 //import android.app.LoaderManager;
+
 import android.content.ContentUris;
 import android.content.ContentValues;
-//import android.content.CursorLoader;
 import android.content.Intent;
-//import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.CursorAdapter;
+import android.widget.TextView;
 
 import com.example.android.inventoryapp.data.FlowerContract.FlowerEntry;
-import com.example.android.inventoryapp.data.FlowerDbHelper;
 
-import android.support.design.widget.FloatingActionButton;
-import android.widget.TextView;
+//import android.content.CursorLoader;
+//import android.content.Loader;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         TextView emptyView = findViewById(R.id.empty_text_view);
         flowerListView.setEmptyView(emptyView);
 
-        Log.v("OnCreate", "Before OnItemCclick");
         //setup an adapter to create a list item for each row of flower data in the Cursor
         defaultCursorAdaptor = new FlowerCursorAdapter(this, null);
         flowerListView.setAdapter(defaultCursorAdaptor);
@@ -72,8 +70,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                  * form the content URI that represents the specific flower that was clicked on,
                  * by appending the id (passed as input to this method) onto the FlowerEntry.CONTENT_URI
                  */
-                Uri currentFlowerUri = ContentUris.withAppendedId(FlowerEntry.CONTENT_URI,id );
-                Log.v("OnClick", String.valueOf(id));
+                Uri currentFlowerUri = ContentUris.withAppendedId(FlowerEntry.CONTENT_URI, id);
 
                 //set the Uri on the data field of the intent
                 intent.setData(currentFlowerUri);
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
         //kick off the loader
-        getSupportLoaderManager().initLoader(FLOWER_LOADER,null ,this );
+        getSupportLoaderManager().initLoader(FLOWER_LOADER, null, this);
     }
 
     //inflate the menu options for the main menu
@@ -107,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         values.put(FlowerEntry.COLUMN_SUPPLIER_PHONE_NO, getString(R.string.supplier_phone_added));
 
         // Insert a new row for Daisy into the provider using the ContentResolver.
-        Uri newUri = getContentResolver().insert(FlowerEntry.CONTENT_URI,values );
+        Uri newUri = getContentResolver().insert(FlowerEntry.CONTENT_URI, values);
     }
 
     @Override
